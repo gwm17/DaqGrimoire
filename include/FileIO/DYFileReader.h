@@ -86,6 +86,7 @@ namespace DaqGrimoire {
 		const bool IsEOF() const { return m_isEOF; }
 		const std::size_t GetFileSizeBytes() const { return m_fileSizeBytes; }
 		const std::size_t GetFileSizeEvents() const { return m_fileSizeEvents; }
+		const std::filesystem::path& GetFilePath() const { return m_filepath; }
 
 	private:
 		void FillBuffer()
