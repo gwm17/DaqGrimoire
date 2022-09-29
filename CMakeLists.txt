@@ -14,6 +14,6 @@ add_library(DaqGrimoire INTERFACE)
 target_include_directories(DaqGrimoire INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(DEFINED GRIMOIRE_ASIO_INCLUDE_PATH)
-    target_compile_definitions(DaqGrimoire DG_HAS_ASIO)
-    target_include_directories(DaqGrimoire PRIVATE ${GRIMOIRE_ASIO_INCLUDE_PATH})
+    target_compile_definitions(DaqGrimoire INTERFACE DG_HAS_ASIO)
+    target_include_directories(DaqGrimoire INTERFACE ${GRIMOIRE_ASIO_INCLUDE_PATH})
 endif()
