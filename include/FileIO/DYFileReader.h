@@ -64,7 +64,7 @@ namespace DaqGrimoire {
 				m_fileHandle->close();
 		}
 
-		bool GetNextEvent(DYListData& dataEvent)
+		bool ReadNextEvent()
 		{
 			if (!IsOpen() || IsEOF())
 				return false;
@@ -76,10 +76,12 @@ namespace DaqGrimoire {
 					return false;
 			}
 
-			Utils::GetDataEventFromBuffer(m_bufferIter, dataEvent);
+			Utils::GetDataEventFromBuffer(m_bufferIter, m_dataEvent);
 
 			return true;
 		}
+
+		const DYListEvent& GetCurrentEvent() const { return m_dataEvent; }
 
 
 		const bool IsOpen() const { return m_fileHandle == nullptr ? false : m_fileHandle->is_open(); }
@@ -103,7 +105,6 @@ namespace DaqGrimoire {
 			m_bufferEnd = m_bufferIter + m_fileHandle->gcount(); //one past the last datum
 		}
 
-		
 
 		std::filesystem::path m_filepath;
 		std::shared_ptr<std::ifstream> m_fileHandle;
@@ -113,6 +114,8 @@ namespace DaqGrimoire {
 
 		std::size_t m_fileSizeBytes; //in bytes
 		std::size_t m_fileSizeEvents; //in data events
+
+		DYListData m_dataEvent;
 
 		bool m_isEOF;
 

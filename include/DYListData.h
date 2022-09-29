@@ -9,16 +9,18 @@ namespace DaqGrimoire {
     namespace Data
     {
         static constexpr std::size_t Size = 24;
+		static constexpr uint16_t InvalidBoard = 999;
+		static constexpr uint16_t InvalidChannel = 999;
     }
 
 	struct DYListData
 	{
-        uint16_t board;
-        uint16_t channel;
-        uint64_t timestamp;
-        uint32_t energy;
-        uint32_t energyShort;
-        uint32_t flags;
+        uint16_t board = Data::InvalidBoard;
+        uint16_t channel = Data::InvalidChannel;
+        uint64_t timestamp = 0;
+        uint32_t energy = 0;
+        uint32_t energyShort = 0;
+        uint32_t flags = 0;
 	};
 
 	namespace Utils
