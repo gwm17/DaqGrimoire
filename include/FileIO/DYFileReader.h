@@ -85,8 +85,12 @@ namespace DaqGrimoire {
 
 		const DYListEvent& GetCurrentEvent() const
 		{ 
-			m_isHitUsed = true; 
 			return m_dataEvent; 
+		}
+
+		void SetHitUsed()
+		{
+			m_isHitUsed = true;
 		}
 
 
