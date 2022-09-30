@@ -14,17 +14,17 @@ namespace DaqGrimoire {
 	{
 	public:
 		DYFileReader() :
-			m_fileHandle(nullptr), m_bufferSizeEvents(200000), m_isEOF(false), m_fileSizeBytes(0), m_fileSizeEvents(0), m_bufferIter(nullptr), m_bufferEnd(nullptr)
+			m_fileHandle(nullptr), m_bufferSizeEvents(200000), m_isEOF(false), m_isHitUsed(false), m_fileSizeBytes(0), m_fileSizeEvents(0), m_bufferIter(nullptr), m_bufferEnd(nullptr)
 		{
 		}
 
 		DYFileReader(std::size_t bufferSize) :
-			m_fileHandle(nullptr), m_bufferSizeEvents(bufferSize), m_isEOF(false), m_fileSizeBytes(0), m_fileSizeEvents(0), m_bufferIter(nullptr), m_bufferEnd(nullptr)
+			m_fileHandle(nullptr), m_bufferSizeEvents(bufferSize), m_isEOF(false), m_isHitUsed(false), m_fileSizeBytes(0), m_fileSizeEvents(0), m_bufferIter(nullptr), m_bufferEnd(nullptr)
 		{
 		}
 
 		DYFileReader(const std::filesystem::path& filepath, std::size_t bufferSize = 200000) :
-			m_fileHandle(nullptr), m_bufferSizeEvents(bufferSize), m_isEOF(false), m_fileSizeBytes(0), m_fileSizeEvents(0), m_bufferIter(nullptr), m_bufferEnd(nullptr)
+			m_fileHandle(nullptr), m_bufferSizeEvents(bufferSize), m_isEOF(false), m_isHitUsed(false), m_fileSizeBytes(0), m_fileSizeEvents(0), m_bufferIter(nullptr), m_bufferEnd(nullptr)
 		{
 			Open(filepath);
 		}
@@ -78,14 +78,21 @@ namespace DaqGrimoire {
 
 			Utils::GetDataEventFromBuffer(m_bufferIter, m_dataEvent);
 
+			m_isHitUsed = false;
+
 			return true;
 		}
 
-		const DYListEvent& GetCurrentEvent() const { return m_dataEvent; }
+		const DYListEvent& GetCurrentEvent() const
+		{ 
+			m_isHitUsed = true; 
+			return m_dataEvent; 
+		}
 
 
 		const bool IsOpen() const { return m_fileHandle == nullptr ? false : m_fileHandle->is_open(); }
 		const bool IsEOF() const { return m_isEOF; }
+		const bool IsHitUsed() const { return m_isHitUsed; }
 		const std::size_t GetFileSizeBytes() const { return m_fileSizeBytes; }
 		const std::size_t GetFileSizeEvents() const { return m_fileSizeEvents; }
 		const std::filesystem::path& GetFilePath() const { return m_filepath; }
@@ -118,6 +125,7 @@ namespace DaqGrimoire {
 		DYListData m_dataEvent;
 
 		bool m_isEOF;
+		bool m_isHitUsed;
 
 		char* m_bufferIter;
 		char* m_bufferEnd;
