@@ -48,7 +48,7 @@ namespace DaqGrimoire {
 					}
 				);
 
-				m_asioThread = std::thread([this]() { m_context.run() });
+				m_asioThread = std::thread([this]() { m_context.run(); });
 			}
 			catch (asio::system_error& e)
 			{

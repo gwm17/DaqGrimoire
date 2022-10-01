@@ -83,7 +83,7 @@ namespace DaqGrimoire {
 			return true;
 		}
 
-		const DYListEvent& GetCurrentEvent() const
+		const DYListData& GetCurrentEvent() const
 		{ 
 			return m_dataEvent; 
 		}
