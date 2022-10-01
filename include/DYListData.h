@@ -25,7 +25,7 @@ namespace DaqGrimoire {
 
 	namespace Utils
 	{
-		void GetDataEventFromBuffer(char* bufferIter, DYListData& dataEvent)
+		inline void GetDataEventFromBuffer(char* bufferIter, DYListData& dataEvent)
 		{
 			dataEvent.board = *((uint16_t*)bufferIter);
 			bufferIter += 2;
