@@ -52,7 +52,7 @@ namespace DaqGrimoire {
 			}
 			catch (asio::system_error& e)
 			{
-				continue;
+				return;
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace DaqGrimoire {
 		{
 			if (IsConnected())
 			{
-				asio::post(m_context, [this]() { m_socket.close(); })
+				asio::post(m_context, [this]() { m_socket.close(); });
 			}
 
 			m_context.stop();
